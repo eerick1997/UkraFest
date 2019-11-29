@@ -7,11 +7,10 @@
 using namespace std;
 
 const int port = 7200;
-vector< string > IPrange; 
+vector< string > IPrange;
 
 
 void get_ip_range( ) {
-    
     IPrange.push_back("127.0.0.1");
     IPrange.push_back("10.100.77.143");
 }
