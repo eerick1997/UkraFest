@@ -7,10 +7,11 @@
 #include <vector>
 #include <thread>
 #include <atomic>
+#include <unistd.h>
 
 using namespace std;
 
-atomic<int> cont1(0), cont2(0), cont3(0);
+atomic<int> cont1(0), cont2(0), cont3(0), Total_Words(0);
 
 int Tokenizer(){
 	int64_t contador=0;	// contador de palabras de todo el texto
@@ -33,7 +34,7 @@ int Tokenizer(){
 	char uacM = 'Ú';
 	// objeto archivo
 	ifstream inFile;
-	inFile.open("server/libro.txt");
+	inFile.open("server/libro_aux.txt");
 	// si el archivo no fue encontrado
 	if(!inFile){
 		cout << "No se ha encontrado el libro\n";
@@ -120,12 +121,9 @@ void Hilo1(string ruta1){
         }
     }
     in.close();
-
 	int64_t tam= v.size();
 	char chararray[TAM_MAX_ARG], *resp;
-
 	int paquetes_a_enviar = ceil((double)tam/TAM_MAX_ARG), j=0;
-
 	for(int i=0; i<paquetes_a_enviar; i++){
 
 		for(int l=0; l<TAM_MAX_ARG && j<tam; j++){
@@ -135,12 +133,55 @@ void Hilo1(string ruta1){
 		}
 
 		Solicitud a;
+		cout << "A" << endl;
+		//sleep(5);
 		resp= a.doOperation("192.168.43.58", 7200, cont1++, (char*)&chararray);
-
-		cout << resp << endl;
+		cout << "B" << endl;
+		int resp_int ;
+		memcpy(&resp_int, resp, 4);
+		cout << endl << resp_int << endl;
+		//Total_Words += resp_int;
+		
 
 	}
-	
+	pthread_exit(0);
+}
+
+// ********************* Hilo 2 *********************
+void Hilo2(string ruta2){
+
+	vector <int> v;
+	ifstream in(ruta2 +".txt", ios::binary);
+    if (in.is_open()){
+        while (!in.eof()){
+            v.push_back(in.get());
+        }
+    }
+    in.close();
+	int64_t tam= v.size();
+	char chararray[TAM_MAX_ARG], *resp;
+	int paquetes_a_enviar = ceil((double)tam/TAM_MAX_ARG), j=0;
+	for(int i=0; i<paquetes_a_enviar; i++){
+
+		for(int l=0; l<TAM_MAX_ARG && j<tam; j++){
+			chararray[l] = v[j];
+			cout << chararray[l];
+			l++;
+		}
+
+		Solicitud a;
+		//sleep(5);
+		resp= a.doOperation("192.168.43.94", 7200, cont1++, (char*)&chararray);
+		int resp_int ;
+		memcpy(&resp_int, resp, 4);
+		cout << endl << resp_int << endl;
+		//Total_Words += resp_int;
+		
+	}
+	for(int i=0; i<10; i++){
+		cout << "Dos " << i << endl;
+		sleep(2);
+	}
 	pthread_exit(0);
 }
 
@@ -151,9 +192,16 @@ int main(){
 	cout << i << endl;
 
 	thread th1(Hilo1, "servidor1");
+	thread th2(Hilo2, "servidor2");
 
 	th1.join();
+	th2.join();
+	
+	
+
 	cout << "El hilo principal termina " << endl;
+
+	cout << "Palabras totales: " << Total_Words << endl;
 
 	/*Solicitud solicitud=Solicitud();
 	char respuesta[TAM_MAX_DATA];
