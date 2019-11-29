@@ -1,7 +1,7 @@
 // Copyright (c) 2015 Cesanta Software Limited
 // All rights reserved
 
-#include "mongoose.h"
+#include "../../../Libraries/mongoose.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -104,7 +104,10 @@ static void ev_handler(struct mg_connection *nc, int ev, void *ev_data) {
         // cout<<"paso algo"<<endl;
           mg_file_upload_handler(nc, ev, ev_data, upload_fname);
             // Send response
-  mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
+          /*if(ev==MG_EV_HTTP_PART_END){
+             mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
+          }*/
+ 
    
       break;  
     case MG_EV_SSI_CALL:
