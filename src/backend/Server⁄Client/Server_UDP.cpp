@@ -33,11 +33,10 @@ int main() {
 
             for( int n_byte = 0; n_byte < TAM_MAX_ARG; n_byte++ ){
                 //cout << n_byte << endl;
-                cout << buffer[ n_byte ] << " ";
+                //cout << buffer[ n_byte ] << " ";
                 if( buffer[ n_byte ] != -1 )
                     bytes.push_back( buffer[ n_byte ] );
                 else {
-                    cout << "EOF" << endl;
                     for( int c : bytes ){
                         out_file.put( c );
                     }
@@ -47,10 +46,14 @@ int main() {
                     in_file.open( name_file );
                     string word;
                     while( in_file >> word ){
-                        if( trie.find_word( word ) )
+                        //cout << word << endl;
+                        if( trie.find_word( word ) ){
+                            cout << word << endl;
                             count_words++;
+                        }
                     }
                     response = count_words;
+                    cout << response << endl;
                     in_file.close();
                     break;
                 }
