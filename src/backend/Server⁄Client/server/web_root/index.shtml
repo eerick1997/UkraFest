@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>UKRANIOFEST</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+  <script src="jquery.flot.min.js"></script>
+  <script src="jquery.flot.time.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+</head>
+<body>
+  <div class="content">
+    <img src="ukraniofest.png" style="float:right; height: 50px; border-radius: 3px;">
+   <center> <h1>UKRANIOFEST</h1></center>
+
+<div id="div1">
+    <h2>Subir Libro</h2>
+    <form method="POST" id="form1" action="/upload" enctype="multipart/form-data">
+          <input type="file" name="file">
+          <br>
+          <button id="boton1" name="boton1" type="submit">Cargar datos</button>
+
+    </form>
+    <br>
+  </div >
+  <br>
+    <div id="div1">
+      <br>
+
+    <label>Respuesta:</label><span id="respuesta"  >&nbsp;</span>
+
+  <br><br>
+
+    <label>Tiempo:</label><span id="tiempo">&nbsp;</span>
+  </div>
+     
+
+    
+  </div>
+</body>
+</html>
