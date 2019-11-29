@@ -135,16 +135,14 @@ void Hilo1(string ruta1){
 		Solicitud a;
 		cout << "A" << endl;
 		//sleep(5);
-		resp= a.doOperation("192.168.43.58", 7200, cont1++, (char*)&chararray);
+		resp= a.doOperation("127.0.0.1", 7200, cont1++, (char*)&chararray);
 		cout << "B" << endl;
 		int resp_int ;
 		memcpy(&resp_int, resp, 4);
 		cout << endl << resp_int << endl;
 		//Total_Words += resp_int;
-		
-
 	}
-	pthread_exit(0);
+	//pthread_exit(0);
 }
 
 // ********************* Hilo 2 *********************
@@ -171,18 +169,17 @@ void Hilo2(string ruta2){
 
 		Solicitud a;
 		//sleep(5);
-		resp= a.doOperation("192.168.43.94", 7200, cont1++, (char*)&chararray);
+		resp= a.doOperation("192.168.43.94", 7201, cont1++, (char*)&chararray);
 		int resp_int ;
 		memcpy(&resp_int, resp, 4);
 		cout << endl << resp_int << endl;
 		//Total_Words += resp_int;
-		
 	}
-	for(int i=0; i<10; i++){
+	/*for(int i=0; i<10; i++){
 		cout << "Dos " << i << endl;
 		sleep(2);
-	}
-	pthread_exit(0);
+	}*/
+	//pthread_exit(0);
 }
 
 
@@ -196,8 +193,6 @@ int main(){
 
 	th1.join();
 	th2.join();
-	
-	
 
 	cout << "El hilo principal termina " << endl;
 
