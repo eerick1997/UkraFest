@@ -44,6 +44,7 @@ int main() {
                             count_words++;
                     }
                     RECEIVED[ 0 ] = count_words;
+                    break;
                 }
             }
 
