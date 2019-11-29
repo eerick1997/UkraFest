@@ -1,11 +1,10 @@
 #include "../../Libraries/Respuesta.h"
 #include "../../Libraries/Trie.h"
-#include "../../Libraries/Mensaje.h"
 #include <bits/stdc++.h>
 
 using namespace std;
 
-const char *name_file = "my_piece_of_file";
+string name_file = "my_piece_of_file";
 int RECEIVED[ 1 ] = { -1 };
 
 int main() {
@@ -28,9 +27,11 @@ int main() {
         char buffer[ TAM_MAX_ARG ];
         request = server.getRequest();
         if( request != NULL ) {
+            cout << "Non null" << endl;
             memcpy( buffer, request -> arguments, sizeof( buffer ) );
 
             for( int n_byte = 0; n_byte < TAM_MAX_ARG; n_byte++ ){
+                cout << buffer[ n_byte ] << " ";
                 if( buffer[ n_byte ] != -1 )
                     bytes.push_back( buffer[ n_byte ] );
                 else {
@@ -52,6 +53,8 @@ int main() {
             }
 
             server.sendReply( (char *)RECEIVED, 1 );
+        } else {
+            cout << "is null " << endl;
         }
     }
     return 0;
