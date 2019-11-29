@@ -35,7 +35,7 @@ void Trie::read_file( std::string name_file ) {
     std::string str1, str2, str3, str4;
     in_file.open( name_file );
     if( !in_file ) {
-        std::cout << "No se ha encontrado el diccionario " + name_file << endl;
+        std::cout << "No se ha encontrado el diccionario " + name_file << std::endl;
         exit( -1 );
     }
     while( in_file >> str1 >> str2 >> str3 >> str4 )
