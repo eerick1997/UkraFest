@@ -17,8 +17,9 @@ char *Solicitud::doOperation(char *IP, int puerto, int operationId, char *argume
     datos.messageType = 1123456;
     datos.requestId = requestID;
     datos.operationId = suma;
-    memcpy(datos.arguments, arguments, 32);
-    PaqueteDatagrama paq((char *)&datos, sizeof(datos), IP, puerto);
+    memcpy(datos.arguments, arguments, TAM_MAX_ARG * sizeof( int ));
+    PaqueteDatagrama paq( (char *)&datos, sizeof( struct mensaje ), IP, puerto );
+    PaqueteDatagrama paq2( sizeof( struct mensaje ) );
 
     int result = -1;
     while ((n--) > 0 && result < 0) {

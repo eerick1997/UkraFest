@@ -33,7 +33,7 @@ int main() {
 
             for( int n_byte = 0; n_byte < TAM_MAX_ARG; n_byte++ ){
                 //cout << n_byte << endl;
-                //cout << buffer[ n_byte ] << " ";
+                cout << buffer[ n_byte ] << " ";
                 if( buffer[ n_byte ] != -1 )
                     bytes.push_back( buffer[ n_byte ] );
                 else {
