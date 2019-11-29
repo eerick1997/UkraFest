@@ -6,7 +6,7 @@ public:
     Respuesta(int port, const char * );
     struct mensaje *getRequest(void);
     char *obtenerDireccion(void);
-    void sendReply(char *respuesta, int type);
+    void sendReply(char *respuesta);
 
 private:
     SocketDatagrama *socketlocal;

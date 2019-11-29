@@ -9,6 +9,7 @@ int RECEIVED[ 1 ] = { -1 };
 
 int main() {
     int64_t count_words;
+    int response = -1;
     Trie trie;
     trie.read_file( "../Words.txt" );
     ofstream out_file( name_file, ios::binary );
@@ -22,19 +23,25 @@ int main() {
     strcpy( IP, ip.c_str() );
     vector< int > bytes;
     Respuesta server( 7200, IP );
+    char buffer[ TAM_MAX_ARG ];
     while( true ) {
         count_words = 0;
-        char buffer[ TAM_MAX_ARG ];
         request = server.getRequest();
         if( request != NULL ) {
             cout << "Non null" << endl;
             memcpy( buffer, request -> arguments, sizeof( buffer ) );
 
             for( int n_byte = 0; n_byte < TAM_MAX_ARG; n_byte++ ){
+                //cout << n_byte << endl;
                 cout << buffer[ n_byte ] << " ";
                 if( buffer[ n_byte ] != -1 )
                     bytes.push_back( buffer[ n_byte ] );
                 else {
+                    cout << "EOF" << endl;
+                    for( int c : bytes ){
+                        out_file.put( c );
+                    }
+                        //cout << c << " ";
                     out_file.close();
                     ifstream in_file;
                     in_file.open( name_file );
@@ -43,17 +50,13 @@ int main() {
                         if( trie.find_word( word ) )
                             count_words++;
                     }
-                    RECEIVED[ 0 ] = count_words;
+                    response = count_words;
+                    in_file.close();
                     break;
                 }
             }
 
-            if( RECEIVED[ 0 ] < 0 ){
-            for( int byte : bytes )
-                out_file.put( byte );
-            }
-
-            server.sendReply( (char *)RECEIVED, 1 );
+            server.sendReply( (char *)&response  );
         } else {
             cout << "is null " << endl;
         }

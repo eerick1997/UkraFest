@@ -20,10 +20,12 @@ char *Respuesta::obtenerDireccion(){
     return clientePaqueteDatagrama -> obtieneDireccion();
 }
 
-void Respuesta::sendReply(char *respuesta, int type){
+void Respuesta::sendReply(char *respuesta){
     struct mensaje response;
+    cout << "A" << endl;
     memcpy( response.arguments, respuesta, TAM_MAX_ARG * sizeof( int ) );
-    response.messageType = type;
+    cout << "B" << endl;
+    response.messageType = 1;
     PaqueteDatagrama paqueteDatagrama( sizeof(struct mensaje) );
     paqueteDatagrama.inicializaDatos( (char *)&response );
     paqueteDatagrama.inicializaIp( clientePaqueteDatagrama -> obtieneDireccion() );

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define TAM_MAX_DATA 40000
-#define TAM_MAX_ARG 5000
+#define TAM_MAX_ARG 10000
 //Definicion de identificadores para operaciones permitidas
 #define suma 1
 #define REPETIDO 0
