@@ -135,14 +135,20 @@ void Hilo1(string ruta1){
 		Solicitud a;
 		cout << "A" << endl;
 		//sleep(5);
+<<<<<<< HEAD
 		resp = a.doOperation("10.100.69.31", 7200, cont1++, (char*)&chararray);
+=======
+		resp= a.doOperation("192.168.43.58", 7200, cont1++, (char*)&chararray);
+>>>>>>> parent of ca05261... Update
 		cout << "B" << endl;
 		int resp_int ;
 		memcpy(&resp_int, resp, sizeof( resp_int ) );
 		cout << endl << resp_int << endl;
 		//Total_Words += resp_int;
+		
+
 	}
-	//pthread_exit(0);
+	pthread_exit(0);
 }
 
 // ********************* Hilo 2 *********************
@@ -169,17 +175,22 @@ void Hilo2(string ruta2){
 
 		Solicitud a;
 		//sleep(5);
+<<<<<<< HEAD
 		resp= a.doOperation("192.168.43.75", 7200, cont1++, (char*)&chararray);
+=======
+		resp= a.doOperation("192.168.43.94", 7200, cont1++, (char*)&chararray);
+>>>>>>> parent of ca05261... Update
 		int resp_int ;
 		memcpy(&resp_int, resp, 4);
 		cout << endl << resp_int << endl;
 		//Total_Words += resp_int;
+		
 	}
-	/*for(int i=0; i<10; i++){
+	for(int i=0; i<10; i++){
 		cout << "Dos " << i << endl;
 		sleep(2);
-	}*/
-	//pthread_exit(0);
+	}
+	pthread_exit(0);
 }
 
 
@@ -193,6 +204,12 @@ int main(){
 
 	//th2.join();
 	th1.join();
+<<<<<<< HEAD
+=======
+	th2.join();
+	
+	
+>>>>>>> parent of ca05261... Update
 
 	cout << "El hilo principal termina " << endl;
 
