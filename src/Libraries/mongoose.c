@@ -7573,7 +7573,7 @@ void mg_file_upload_handler(struct mg_connection *nc, int ev, void *ev_data,
                   "Connection: close\r\n\r\n"
                   "Ok, %s - %d bytes.\r\n",
                   mp->file_name, (int) fus->num_recd);*/
-         mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
+         //mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
       } else {
         LOG(LL_ERROR, ("Failed to store %s (%s)", mp->file_name, fus->lfn));
         /*

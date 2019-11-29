@@ -22,7 +22,6 @@ char * Solicitud::doOperation( char *IP, int puerto, int operationId, char *argu
     datos.messageType = 1123456;
     datos.requestId = requestID;
     datos.operationId = operationId;
-     cout<<"hola"<<endl;
     memcpy(datos.arguments, arguments, TAM_MAX_DATA * sizeof( char ) );
 
     PaqueteDatagrama paq( (char *)&datos, sizeof( struct mensaje ), IP, puerto );

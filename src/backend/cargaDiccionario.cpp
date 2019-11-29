@@ -17,7 +17,7 @@ int main(){
     }
     
     while( inFile >> str1 >> str2 >> str3 >> str4 ){
-        //cout << str2 << endl; //No habilitar este comentario, son muchas palabras Xd
+        cout << str2 << endl; //No habilitar este comentario, son muchas palabras Xd
         // Ingresar las palabras a la clase Trie
         trie.insert_word(str2);
     }

@@ -28,7 +28,7 @@ char oacM = 'Ó';
 char uacM = 'Ú';
 // objeto archivo
 ifstream inFile;
-inFile.open("Dostoievski, Fiódor (1880). Los hermanos Karamazov [14926].txt");
+inFile.open("server/libro.txt");
 // si el archivo no fue encontrado
 if(!inFile){
     cout << "No se ha encontrado el libro\n";
