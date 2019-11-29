@@ -29,7 +29,7 @@ void send_request_ss( int quality, int time ) {
         vector< int  > image = request.doOperation( ip, port, 1, command );
         if( image.size() > 0 ){
             ofstream out( "Images/" + IP + ".png", ios::binary );
-            for( auto byte : image )   
+            for( auto byte : image )
                 out.put( byte );
             out.close();
         }
@@ -46,6 +46,5 @@ int main(){
         send_request_ss( quality, time );
         this_thread::sleep_for( chrono::seconds( abs( time - 1 ) ) );
     }
-    
     return 0;
 }
