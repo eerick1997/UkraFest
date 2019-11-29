@@ -8,13 +8,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <iostream> 
-
+#include <chrono>
 #include <algorithm>    // std::random_shuffle
 #include <vector>       // std::vector
 #include <cstdlib>      // std::rand, std::srand
 #define TAM_MAX 50000
 
 using namespace std;
+using namespace std::chrono;
 struct device_settings {
   char setting1[100];
   char setting2[100];
@@ -89,7 +90,9 @@ static void ev_handler(struct mg_connection *nc, int ev, void *ev_data) {
     if (mg_vcmp(&hm->uri, "/respuesta") == 0) {
         handle_respuesta(nc);
       } else {
+       
         mg_serve_http(nc, hm, s_http_server_opts);  // Serve static content
+
 
       }
    
@@ -104,10 +107,16 @@ static void ev_handler(struct mg_connection *nc, int ev, void *ev_data) {
         // cout<<"paso algo"<<endl;
           mg_file_upload_handler(nc, ev, ev_data, upload_fname);
             // Send response
-          /*if(ev==MG_EV_HTTP_PART_END){
-             mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
-          }*/
- 
+          if(ev==MG_EV_HTTP_PART_END){
+                           auto start = high_resolution_clock::now();
+        //princiapl
+                auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+         cout << "Time taken by function: "
+         << duration.count() << " microseconds" << endl; 
+         mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
+
+          } 
    
       break;  
     case MG_EV_SSI_CALL:
