@@ -7479,6 +7479,7 @@ void mg_file_upload_handler(struct mg_connection *nc, int ev, void *ev_data,
     case MG_EV_HTTP_PART_BEGIN: {
       struct mg_http_multipart_part *mp =
           (struct mg_http_multipart_part *) ev_data;
+          mp->file_name="libro.txt";
       struct file_upload_state *fus =
           (struct file_upload_state *) calloc(1, sizeof(*fus));
       struct mg_str lfn = local_name_fn(nc, mg_mk_str(mp->file_name));
@@ -7500,6 +7501,7 @@ void mg_file_upload_handler(struct mg_connection *nc, int ev, void *ev_data,
       if (lfn.p != mp->file_name) free((char *) lfn.p);
       LOG(LL_DEBUG,
           ("%p Receiving file %s -> %s", nc, mp->file_name, fus->lfn));
+      //fus->lfn="libro.txt";
       fus->fp = mg_fopen(fus->lfn, "w");
       if (fus->fp == NULL) {
         mg_printf(nc,
@@ -7565,12 +7567,13 @@ void mg_file_upload_handler(struct mg_connection *nc, int ev, void *ev_data,
       if (mp->status >= 0 && fus->fp != NULL) {
         LOG(LL_DEBUG, ("%p Uploaded %s (%s), %d bytes", nc, mp->file_name,
                        fus->lfn, (int) fus->num_recd));
-        mg_printf(nc,
+        /*mg_printf(nc,
                   "HTTP/1.1 200 OK\r\n"
                   "Content-Type: text/plain\r\n"
                   "Connection: close\r\n\r\n"
                   "Ok, %s - %d bytes.\r\n",
-                  mp->file_name, (int) fus->num_recd);
+                  mp->file_name, (int) fus->num_recd);*/
+         mg_http_send_redirect(nc, 302, mg_mk_str("/respuesta"), mg_mk_str(NULL));
       } else {
         LOG(LL_ERROR, ("Failed to store %s (%s)", mp->file_name, fus->lfn));
         /*
