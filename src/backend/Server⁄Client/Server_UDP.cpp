@@ -1,4 +1,5 @@
-#include "../Libraries/Respuesta.h"
+#include "../../Libraries/Respuesta.h"
+#include "../../Libraries/Trie.h"
 #include <iostream>
 
 using namespace std;
@@ -6,10 +7,9 @@ using namespace std;
 const char *name_image = "screen_shoot.png";
 
 int main() {
+    Trie trie;
     char *IP;
     string ip;
-    int packet[ TAM_MAX_ARG ];
-    char command[ TAM_MAX_ARG ];
     struct mensaje *request;
     cout << "IP: ";
     cin >> ip;
@@ -20,30 +20,10 @@ int main() {
     while( true ) {
         request = server.getRequest();
         if( request != NULL ) {
-            vector< int > bytes;
-            memcpy( command, request -> arguments, sizeof( command ) );
-            cout << command << endl;
-            system( command );
-            ifstream in( name_image, ios::binary );
+            char words[ 20000 ];
+            memcpy( words, request -> arguments, sizeof( words ) );
 
-            if( in.is_open() )
-                while( !in.eof() )
-                    bytes.push_back( in.get() );
-            int number_packets = ceil( ( ( float )bytes.size() / (float)TAM_MAX_ARG ) );
-            server.sendReply( (char *)&number_packets, number_packets );
-            for( int npacket = 0, index = 0; npacket < number_packets; npacket++ ){
-                cout << endl << npacket << endl << endl;
-                for( int i = 0; i < TAM_MAX_ARG; i++ ){
-                    packet[ i ] = bytes[ index ];
-                    index++;
-                    if( index == bytes.size() )
-                        break;
-                }
-                server.sendReply( (char *)packet, npacket );
-            }
-            remove( name_image );
-            in.close();
-        }
+            server.sendReply( (char *)words, 1 );
     }
     return 0;
 }

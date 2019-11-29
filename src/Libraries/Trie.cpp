@@ -1,4 +1,6 @@
 #include "Trie.h"
+#include <iostream>
+#include <bits/stdc++.h>
 
 Trie::Trie(){
     root = new Node();
@@ -26,4 +28,18 @@ bool Trie::find_word( const std::string &word ) {
         current = current -> letters[ c ];
     }
     return current -> isWord;
+}
+
+void Trie::read_file( std::string name_file ) {
+    std::ifstream in_file;
+    std::string str1, str2, str3, str4;
+    in_file.open( name_file );
+    if( !in_file ) {
+        std::cout << "No se ha encontrado el diccionario " + name_file << endl;
+        exit( -1 );
+    }
+    while( in_file >> str1 >> str2 >> str3 >> str4 )
+        insert_word( str2 );
+
+    in_file.close();
 }
