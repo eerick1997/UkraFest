@@ -9,7 +9,7 @@ int main(){
     string str1, str2, str3, str4;
     Trie trie;
 
-    inFile.open("diccionario.txt");
+    inFile.open("diccionario.txt"); // Cambiar el archivo de texto a Words.txt
 
     if(!inFile){
         cout << "No se ha encontrado el diccionario\n";
